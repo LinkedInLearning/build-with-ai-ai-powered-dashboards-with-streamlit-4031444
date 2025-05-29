@@ -1,5 +1,5 @@
-# COURSENAME
-This is the repository for the LinkedIn Learning course `course-name`. The full course is available from [LinkedIn Learning][lil-course-url].
+# Build with AI: AI-Powered Dashboards with Streamlit
+This is the repository for the LinkedIn Learning course `Build with AI: AI-Powered Dashboards with Streamlit`. The full course is available from [LinkedIn Learning][lil-course-url].
 
 ![course-name-alt-text][lil-thumbnail-url] 
 
