@@ -36,7 +36,8 @@ st.subheader("")
 st.dataframe(df.head())
 
 #Determine if chat history exists in the session state and initialize if it doesn't
-
+if "history" not in st.session_state:
+    st.session_state.history = []
 
 #Create text input area for users to describe their cleaning instructions
 
@@ -109,6 +110,13 @@ if st.button(""):
             with open(".pkl", "wb") as f:
                 pickle.dump(df, f)
 
+            #Also save cleaned dataset to the Chapter_4 folder one level up
+
+            #Ensure Chapter_4 exists
+ 
+            #Save current dataframe to a pickle file for use by temp script
+
+
             #Create temporary Python script containing AI-generated cleaning code
             temp_code = f"""
 import pickle
@@ -148,8 +156,8 @@ import pickle
 #Add download button to allow users to download cleaned data as CSV file
 
 
-#Add conversation history window
-st.markdown("### Conversation")
+#Add chat window to display messages
+st.markdown("")
 #Loop through the chat history stored in session state and display each message
 for who, msg in st.session_state.history:
     #Check if message is from user and display it

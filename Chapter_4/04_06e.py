@@ -14,6 +14,13 @@ import traceback
 #Enable Altair VegaFusion data transformer for efficient chart rendering
 alt.data_transformers.enable("vegafusion")
 
+#Open file with API key
+with open("openai_key.txt") as f:
+    my_api_key = f.read().strip()
+
+#Initialize OpenAI client with your API key
+client = OpenAI(api_key=my_api_key)
+
 #Configure page
 st.set_page_config(page_title="Hotel Dashboard", layout="wide")
 
@@ -157,6 +164,66 @@ except Exception as e:
     #Log the full traceback for debugging purposes
     logging.error(traceback.format_exc())
 
+#Add AI Chabot section in sidebar
+st.sidebar.header("AI Assistant")
+#Determine if chat history exists in the session state and initialize if it doesn't
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+
+#Create text input field in sidebar to allow users to type in message
+user_input = st.sidebar.text_input(
+    "Ask a question about this hotel dashboard:",
+    key="ui_input"
+)
+
+#Check if send button is clicked
+if st.sidebar.button("Send", key="ui_send"):
+    if not user_input.strip():
+        #Provide warning if user has not entered any input
+        st.sidebar.warning("Please enter a question before sending.")
+    else:
+        #Add user's message to chat history
+        st.session_state.chat_history.append({"role": "user", "content": user_input})
+
+        #Build system prompt and add current chat history
+        messages = [
+            {
+                "role": "system",
+                "content": (
+                    "You are an assistant helping analyze a hotel performance dashboard. "
+                    "You have access to filtered dataframe `df`, which contains metrics like "
+                    "revenue, profit, city, etc. "
+                    "Answer in clear, concise language, and if code would help, provide an Altair snippet."
+                )
+            }
+        ] + st.session_state.chat_history
+
+        try:
+            #Send chat history to OpenAI LLM and receive response
+            resp = client.chat.completions.create(
+                #Select model
+                model="gpt-3.5-turbo",
+                messages=messages
+            )
+            #Gather assistant's response
+            reply = resp.choices[0].message.content
+            #Add AI assistant's reply to chat history
+            st.session_state.chat_history.append({"role": "assistant", "content": reply})
+
+        except Exception as e:
+            #Handle API errors and add to chat history
+            st.session_state.chat_history.append({
+                "role": "assistant",
+                "content": f"Error: {e}"
+            })
+
+#Loop through the chat history stored in session state and display each message
+for msg in st.session_state.chat_history:
+    if msg["role"] == "user":
+        st.sidebar.markdown(f"**You:** {msg['content']}")
+    else:
+        st.sidebar.markdown(f"**Bot:** {msg['content']}")
+        
 #Add feedback section in the sidebar for user input
 st.sidebar.header("📣 Feedback")
 
@@ -189,16 +256,16 @@ if st.sidebar.button("Submit Feedback"):
         st.sidebar.success("Thank you — your feedback has been logged.")
 
 #Read and display recent log entries for dashboard activity and feedback
-st.subheader("Recent Log Entries")
+with st.expander("Recent Log Entries"):
 
-#Read last 10 lines of the dashboard maintenance log
-if os.path.exists("dashboard_maintenance.log"):
-    #Open the log file and read its contents
-    with open("dashboard_maintenance.log") as f:
-        #Read only the last 10 lines for recent activity
-        lines = f.readlines()[-10:]
-    #Display last 10 log lines in a Streamlit code block
-    st.code("".join(lines))
-else:
-    #If log file doesn't exist yet, notify user
-    st.write("No log entries found yet.")
+    #Read last 10 lines of the dashboard maintenance log
+    if os.path.exists("dashboard_maintenance.log"):
+        #Open the log file and read its contents
+        with open("dashboard_maintenance.log") as f:
+            #Read only the last 10 lines for recent activity
+            lines = f.readlines()[-10:]
+        #Display last 10 log lines in a Streamlit code block
+        st.code("".join(lines))
+    else:
+        #If log file doesn't exist yet, notify user
+        st.write("No log entries found yet.")

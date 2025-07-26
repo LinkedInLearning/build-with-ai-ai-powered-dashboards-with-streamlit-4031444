@@ -6,9 +6,17 @@ import streamlit as st
 import pandas as pd
 import os, pickle
 import altair as alt
+from openai import OpenAI
 
 #Enable Altair VegaFusion data transformer for efficient chart rendering
 alt.data_transformers.enable("vegafusion")
+
+#Open file with API key
+with open("openai_key.txt") as f:
+    my_api_key = f.read().strip()
+
+#Initialize OpenAI client with your API key
+client = OpenAI(api_key=my_api_key)
 
 #Configure page
 st.set_page_config(page_title="Hotel Dashboard", layout="wide")
@@ -134,3 +142,63 @@ try:
 except Exception as e:
     #Display error message in the Streamlit UI if the layout execution fails
     st.error(f"Error running dashboard layout: {e}")
+
+#Add AI Chabot section in sidebar
+st.sidebar.header("AI Assistant")
+#Determine if chat history exists in the session state and initialize if it doesn't
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+
+#Create text input field in sidebar to allow users to type in message
+user_input = st.sidebar.text_input(
+    "Ask a question about this hotel dashboard:",
+    key="ui_input"
+)
+
+#Check if send button is clicked
+if st.sidebar.button("Send", key="ui_send"):
+    if not user_input.strip():
+        #Provide warning if user has not entered any input
+        st.sidebar.warning("Please enter a question before sending.")
+    else:
+        #Add user's message to chat history
+        st.session_state.chat_history.append({"role": "user", "content": user_input})
+
+        #Build system prompt and add current chat history
+        messages = [
+            {
+                "role": "system",
+                "content": (
+                    "You are an assistant helping analyze a hotel performance dashboard. "
+                    "You have access to filtered dataframe `df`, which contains metrics like "
+                    "revenue, profit, city, etc. "
+                    "Answer in clear, concise language, and if code would help, provide an Altair snippet."
+                )
+            }
+        ] + st.session_state.chat_history
+
+        try:
+            #Send chat history to OpenAI LLM and receive response
+            resp = client.chat.completions.create(
+                #Select model
+                model="gpt-3.5-turbo",
+                messages=messages
+            )
+            #Gather assistant's response
+            reply = resp.choices[0].message.content
+            #Add AI assistant's reply to chat history
+            st.session_state.chat_history.append({"role": "assistant", "content": reply})
+
+        except Exception as e:
+            #Handle API errors and add to chat history
+            st.session_state.chat_history.append({
+                "role": "assistant",
+                "content": f"Error: {e}"
+            })
+
+#Loop through the chat history stored in session state and display each message
+for msg in st.session_state.chat_history:
+    if msg["role"] == "user":
+        st.sidebar.markdown(f"**You:** {msg['content']}")
+    else:
+        st.sidebar.markdown(f"**Bot:** {msg['content']}")

@@ -23,7 +23,7 @@ client = OpenAI(api_key=my_api_key)
 st.set_page_config(page_title="Hotel Dashboard", layout="wide")
 
 #Write title
-st.title("Refine Visualizations with AI")
+st.title("")
 
 #Create directory to store chart files if it doesn't already exist
 CHART_DIR = "charts"
@@ -110,7 +110,7 @@ if st.button(""):
         st.code(ai_code, language="python")
 
         #Combine original chart code and AI-generated refinement code
-        refined_code = chart_code + "\n" + ai_code
+        
 
         #Attempt to save combined refined code back to original file
         out_path = os.path.join(CHART_DIR, chart_name)

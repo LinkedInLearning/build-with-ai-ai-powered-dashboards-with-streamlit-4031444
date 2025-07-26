@@ -20,7 +20,7 @@ st.title("Identify KPI Metrics")
 
 #Check if cleaned dataset exists, stop app if not found
 if not os.path.exists("cleaned_data_final.pkl"):
-    st.error("No cleaned dataset found. Please complete Lesson 2 first.")
+    st.error("No cleaned dataset found. Please complete previous lessons first.")
     st.stop()
 
 #Load cleaned dataset from pickle file

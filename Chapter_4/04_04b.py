@@ -6,15 +6,23 @@ import streamlit as st
 import pandas as pd
 import os, pickle
 import altair as alt
+from openai import OpenAI
 
 #Enable Altair VegaFusion data transformer for efficient chart rendering
 alt.data_transformers.enable("vegafusion")
+
+#Open file with API key
+with open("openai_key.txt") as f:
+    my_api_key = f.read().strip()
+
+#Initialize OpenAI client with your API key
+client = OpenAI(api_key=my_api_key)
 
 #Configure page
 st.set_page_config(page_title="Hotel Dashboard", layout="wide")
 
 #Write title
-st.title("Interactive Hotel Dashboard")
+st.title("")
 
 #Check for cleaned dataset, stop if missing
 if not os.path.exists("cleaned_data_final.pkl"):
@@ -128,3 +136,35 @@ if not charts:
     #Execute the AI-generated dashboard layout code, injecting charts and Streamlit into its local namespace
 
     #Display error message in the Streamlit UI if the layout execution fails
+
+#Add AI Chabot section in sidebar
+
+#Determine if chat history exists in the session state and initialize if it doesn't
+
+#Create text input field in sidebar to allow users to type in message
+
+
+#Check if send button is clicked
+
+        #Provide warning if user has not entered any input
+
+        #Add user's message to chat history
+
+
+        #Build system prompt and add current chat history
+
+
+
+            #Send chat history to OpenAI LLM and receive response
+
+                #Select model
+
+            #Gather assistant's response
+
+            #Add AI assistant's reply to chat history
+
+
+            #Handle API errors and add to chat history
+
+
+#Loop through the chat history stored in session state and display each message

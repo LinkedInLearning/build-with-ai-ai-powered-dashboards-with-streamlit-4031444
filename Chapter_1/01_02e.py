@@ -20,7 +20,7 @@ if st.button("Press me!"):
     st.success("Button was pressed!")
 
 #Create slider widget
-age = st.slider("Your age", 0, 120, 30)
+age = st.slider("Your age", 0, 100, 30)
 st.write(f"You are {age} years old.")
 
 #Create text input widget
@@ -33,17 +33,9 @@ toggle = st.checkbox("Check for a surprise")
 if toggle:
     st.info("Surprise!")
 
-#Create radio buttons widget
-gender = st.radio("Select Gender", ["Male", "Female", "Other"])
-st.write("You selected:", gender)
-
 #Create multiselect widget
 options = st.multiselect("Choose pizza toppings", ["Cheese", "Pepperoni", "Onions"])
 st.write("Toppings:", options)
-
-#Create date input widget
-today = st.date_input("Pick a date:", date.today())
-st.write("You picked:", today)
 
 #Create sidebar container
 st.sidebar.title("Sidebar Panel")

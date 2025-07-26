@@ -18,7 +18,7 @@ st.title("")
 #Load revenue and expenses file
 
 #Load location file
-)
+
 #Merge datasets on 'Hotel ID'
 
 
@@ -93,7 +93,7 @@ st.dataframe(df.head())
             #Handle API and execution errors and add to chat history
 
 
-#Add conversation history window
+#Add chat window to display messages
 
 #Loop through the chat history stored in session state and display each message
 

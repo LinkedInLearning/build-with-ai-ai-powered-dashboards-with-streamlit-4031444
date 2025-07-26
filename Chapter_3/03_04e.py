@@ -121,9 +121,18 @@ if st.session_state.latest_code:
             with open("cleaned_data_final.pkl", "wb") as f:
                 pickle.dump(df, f)
 
+            #Also save cleaned dataset to the Chapter_4 folder one level up
+            chapter_4_path = os.path.join(os.path.dirname(os.getcwd()), "Chapter_4", "cleaned_data_final.pkl")
+            #Ensure Chapter_4 exists
+            os.makedirs(os.path.dirname(chapter_4_path), exist_ok=True)  
+            #Save current dataframe to a pickle file for use by temp script
+            with open(chapter_4_path, "wb") as f:
+                pickle.dump(df, f)
+
             #Create temporary Python script containing AI-generated cleaning code
             temp_code = f"""
 import pickle
+import os
 
 #Load existing dataframe
 with open("cleaned_data_final.pkl", "rb") as f:
@@ -132,8 +141,14 @@ with open("cleaned_data_final.pkl", "rb") as f:
 #AI-generated cleaning code
 {st.session_state.latest_code}
 
-#Save updated dataframe back
+#Save updated dataframe back to current folder
 with open("cleaned_data_final.pkl", "wb") as f:
+    pickle.dump(df, f)
+
+#Save updated dataframe to Chapter_4 folder one level up
+chapter_4_path = os.path.join(os.path.dirname(os.getcwd()), "Chapter_4", "cleaned_data_final.pkl")
+os.makedirs(os.path.dirname(chapter_4_path), exist_ok=True)
+with open(chapter_4_path, "wb") as f:
     pickle.dump(df, f)
 """
 
@@ -174,8 +189,8 @@ st.download_button(
     mime="text/csv"
 )
 
-#Add conversation history window
-st.markdown("### Conversation")
+#Add chat window to display messages
+st.markdown("Cleaning History")
 #Loop through the chat history stored in session state and display each message
 for who, msg in st.session_state.history:
     #Check if message is from user and display it

@@ -23,10 +23,9 @@ if rev_exp_file and loc_file:
         df_rev_exp = pd.read_excel(rev_exp_file)
         #Read in location file
         df_loc = pd.read_excel(loc_file)
-        #Merge files on 'Hotel ID' stepwise
+        #Merge files on 'Hotel ID'
         df = (
             df_rev_exp
-            .merge(df_rev_exp, on="Hotel ID", how="outer")
             .merge(df_loc, on="Hotel ID", how="outer")
         )
     #Display success message when files are merged
@@ -42,7 +41,7 @@ if rev_exp_file and loc_file:
     with st.expander("Show full dataset"):
         st.dataframe(df)
 
-    ##Cache computations that return data
+    #Cache computations that return data
     @st.cache_data
     #Create DataFrame to CSV conversion function
     def convert_df(df):
@@ -61,4 +60,4 @@ if rev_exp_file and loc_file:
 
 #If files have not been uploaded, display an informational message
 else:
-    st.info("Please upload all three files to proceed.")
+    st.info("Please upload all two files to proceed.")

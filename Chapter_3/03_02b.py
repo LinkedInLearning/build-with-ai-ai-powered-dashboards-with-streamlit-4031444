@@ -22,7 +22,7 @@
 
         #Read in location file
 
-        #Merge files on 'Hotel ID' stepwise
+        #Merge files on 'Hotel ID'
 
     #Display success message when files are merged
 
@@ -36,7 +36,7 @@
     #Add expander to show entire merged dataset
 
 
-    ##Cache computations that return data
+    #Cache computations that return data
 
     #Create DataFrame to CSV conversion function
 

@@ -44,7 +44,7 @@ st.subheader("Chat Widget")
 if 'chat_history' not in st.session_state:
     st.session_state.chat_history = []
 
-#Create text input field in sidebar to allow users to type in message
+#Create text input field to allow users to type in message
 user_input = st.text_input('Type a message...', key='ui_input')
 #Check if send button is clicked
 if st.button('Send', key='ui_send'):
@@ -81,7 +81,7 @@ if st.button('Send', key='ui_send'):
                     with tempfile.NamedTemporaryFile('w', suffix='.py', delete=False) as tmp:
                         tmp.write(code_content)
                         tmp.flush()
-                        #Run the temporary Python file and capture the results as a dictionary
+                        #Run the temporary Python file and capture the results
                         result = runpy.run_path(tmp.name)
                     st.subheader('Execution Result')
                     #Display the result when the code is run

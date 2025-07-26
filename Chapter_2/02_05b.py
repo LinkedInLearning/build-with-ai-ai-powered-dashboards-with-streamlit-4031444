@@ -57,9 +57,12 @@ if 'chat_history' not in st.session_state:
     #Display a spinner while code is running
 
             #Create a temporary file to write the Python code into
-
-                #Run the temporary Python file and capture the results as a dictionary
-
+            with tempfile.NamedTemporaryFile("w", suffix=".py", delete=False) as tmp:
+                tmp.write(code)
+                tmp.flush()
+                #Run the temporary Python file and capture the results
+                result = runpy.run_path(tmp.name)
+                
             #Check if expected variable is present
 
                 #Display message if variable is missing

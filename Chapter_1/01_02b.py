@@ -25,13 +25,7 @@
 #Create checkbox widget
 
 
-#Create radio buttons widget
-
-
 #Create multiselect widget
-
-
-#Create date input widget
 
 
 #Create sidebar container

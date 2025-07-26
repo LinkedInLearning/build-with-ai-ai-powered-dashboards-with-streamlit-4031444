@@ -145,8 +145,8 @@ with open("result.pkl", "wb") as f:
                 st.error(f"AI error: {e}")
                 st.session_state.history.append(("Bot", f"Error: {e}"))
 
-#Add conversation history window
-st.markdown("### Conversation")
+#Add chat window to display messages
+st.subheader("Summary History")
 #Loop through the chat history stored in session state and display each message
 for who, msg in st.session_state.history:
     #Check if message is from user and display it

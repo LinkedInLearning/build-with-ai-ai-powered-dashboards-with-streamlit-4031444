@@ -45,7 +45,7 @@ if 'chat_history' not in st.session_state:
     st.session_state.chat_history = []
 
 #Create code input area on main page for user to paste Python code
-st.subheader("Paste Python code to run (must define a variable `df_counts`):")
+st.subheader("Paste Python code to run (must define a variable `df`):")
 user_code = st.text_area("Python Code", height=200)
 
 #Define function to execute the user-submitted code
@@ -64,20 +64,20 @@ def run_code():
             with tempfile.NamedTemporaryFile("w", suffix=".py", delete=False) as tmp:
                 tmp.write(code)
                 tmp.flush()
-                #Run the temporary Python file and capture the results as a dictionary
+                #Run the temporary Python file and capture the results
                 result = runpy.run_path(tmp.name)
 
             #Check if expected variable is present
-            if 'df_counts' not in result:
+            if 'df' not in result:
                 #Display message if variable is missing
-                st.info("Code ran, but no variable named `df_counts` was found.")
+                st.info("Code ran, but no variable named `df` was found.")
                 #Add assistant's reply to chat history
-                st.session_state.chat_history.append(("Bot", "No `df_counts` variable found."))
+                st.session_state.chat_history.append(("Bot", "No `df` variable found."))
             else:
                 #Display success message if code runs and variable is present
                 st.success("Code executed successfully!")
                 #Display the result when the code is run
-                st.write(result['df_counts'])
+                st.write(result['df'])
                 #Add assistant's reply to chat history
                 st.session_state.chat_history.append(("Bot", "Code ran successfully and returned a DataFrame."))
 

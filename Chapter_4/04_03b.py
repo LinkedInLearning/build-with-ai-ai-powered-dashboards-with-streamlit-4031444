@@ -51,15 +51,16 @@ st.dataframe(df.head())
     #Check if the file is a Python file by confirming it ends with ".py"
 
         #Open the chart Python file and read its code as a string
-
+        with open(os.path.join(CHART_DIR, fname), encoding="utf-8") as f:
+            code = f.read()
         
         #Create a local namespace with required objects for chart code execution
-
+        local_vars = {"df": df, "alt": alt}
         
         #Try to safely execute the chart code
 
             #Execute the code in an isolated local_vars context
- 
+            exec(code, {}, local_vars)  
             
             #If a variable named 'chart' was created during code execution, store it in the charts dictionary
 
@@ -69,7 +70,8 @@ st.dataframe(df.head())
 
         
         #If any error occurs while loading a chart file, display and log an error message
-
+        except Exception as e:
+            st.error(f"{e}")
 
 
 #Provide warning if no charts found in directory
@@ -95,10 +97,7 @@ if st.button(""):
                 #Prepare AI system instructions with list of available chart names
                 chart_names = ", ".join(charts.keys())
                 system_message = (
-                    f"You are a Streamlit layout expert. Given these Altair chart variables: {chart_names}, "
-                    "write only a Python code block using Streamlit commands like st.columns(), st.container(), st.altair_chart() "
-                    "to arrange them into a dashboard according to the user's instructions. "
-                    "Do not import anything and do not define the charts, just lay them out using existing variables."
+                    f""
                 )
 
                 #Send prompt and system instructions to OpenAI LLM and receive response
@@ -129,7 +128,9 @@ if st.button(""):
                 exec()
 
                 #Save AI-generated layout code for next lesson use
-
+                with open("", "w", encoding="utf-8") as f:
+                    f.write()
+                st.success("")
 
             #Handle errors if code generation or execution fails
             except Exception as e:

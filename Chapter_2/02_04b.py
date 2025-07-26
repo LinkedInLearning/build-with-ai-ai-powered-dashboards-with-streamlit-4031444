@@ -42,7 +42,7 @@ y_axis = st.sidebar.selectbox('Y-axis feature:', options=iris.feature_names, ind
 if 'chat_history' not in st.session_state:
     st.session_state.chat_history = []
 
-#Create text input field in sidebar to allow users to type in message
+#Create text input field to allow users to type in message
 
 #Check if send button is clicked
 
@@ -76,7 +76,7 @@ if 'chat_history' not in st.session_state:
 
                     #Create a temporary file to write the Python code into
 
-                        #Run the temporary Python file and capture the results as a dictionary
+                        #Run the temporary Python file and capture the results
 
                     #Display the result when the code is run
 
