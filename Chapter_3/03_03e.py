@@ -105,10 +105,10 @@ with open("df.pkl", "rb") as f:
 
 #Save result
 try:
-    result  #if result already exists in AI code
+    result 
 except NameError:
     try:
-        result = expenses_summary  #if AI called it something specific
+        result = expenses_summary 
     except:
         try:
             result = payroll_summary

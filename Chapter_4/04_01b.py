@@ -3,6 +3,10 @@
 
 #Import packages
 
+
+#Enable Altair VegaFusion data transformer for efficient chart rendering
+
+
 #Open file with API key
 
 

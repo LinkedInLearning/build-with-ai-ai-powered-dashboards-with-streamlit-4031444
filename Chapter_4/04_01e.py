@@ -71,9 +71,9 @@ if st.button("Generate & Save Chart"):
                             "role": "system",
                             "content": (
                                 "You are an Altair expert. Given a DataFrame `df`, "
-                                "return *only* a Python code block that builds an Altair chart "
-                                "and assigns it to a variable named `chart`. Do not include extra imports "
-                                "or `st.` calls—just the Altair code."
+                                "return only a Python code block that builds an Altair chart "
+                                "and assigns it to a variable named `chart`. "
+                                "Do not include extra imports or `st.` calls, just the Altair code."
                             ),
                         },
                         #Send user's chart description

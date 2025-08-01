@@ -88,7 +88,7 @@ if st.button("Refine & Save"):
                         #Provide system instructions
                         {"role": "system", "content": (
                             "You are an Altair expert. Given an existing Altair `chart`, "
-                            "return *only* a Python code block that modifies `chart` "
+                            "return only a Python code block that modifies `chart` "
                             "according to the user's instructions, reassigning to `chart`."
                         )},
                         #Send user's refinement instruction

@@ -44,7 +44,7 @@ if "history" not in st.session_state:
 
 #Create text input area for users to describe their cleaning instructions
 user_prompt = st.text_area(
-    "Describe how you'd like to clean the data (e.g. drop nulls in 'Expenses', rename columns, etc.)",
+    "Describe how you'd like to clean the data (e.g. drop null values, rename columns, etc.)",
     height=100
 )
 

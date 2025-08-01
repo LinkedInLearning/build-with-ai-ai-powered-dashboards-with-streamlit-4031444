@@ -27,13 +27,13 @@ def test_cleaned_data_load():
 #Test that chart files exist in the 'charts' directory
 def test_chart_files_exist():
     """Verify that at least one chart file exists in the charts directory."""
-    chart_dir = "charts"
+    CHART_DIR = "charts"
 
     #Confirm charts directory exists
-    assert os.path.exists(chart_dir), "Charts directory missing."
+    assert os.path.exists(CHART_DIR), "Charts directory missing."
 
     #Collect all Python files within the directory
-    py_files = [f for f in os.listdir(chart_dir) if f.endswith(".py")]
+    py_files = [f for f in os.listdir(CHART_DIR) if f.endswith(".py")]
 
     #Confirm at least one chart file exists
     assert py_files, "No chart files found."
@@ -61,7 +61,7 @@ def test_chart_execution(chart_file):
         assert "chart" in local_vars, f"'chart' not defined in {chart_file}"
         chart = local_vars["chart"]
         #Ensure 'chart' is an instance of an Altair Chart
-        assert isinstance(chart, alt.Chart), f"{chart_file} did not produce an Altair chart."
+        assert isinstance(chart, alt.TopLevelMixin), f"{chart_file} did not produce an Altair chart."
     except Exception as e:
         #Fail test if any exception occurs
         pytest.fail(f"{chart_file} failed to execute: {e}")

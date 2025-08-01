@@ -78,7 +78,8 @@ if st.button("Generate KPI Suggestions"):
                     "- Which column(s) to use\n"
                     "- A suggested chart type\n"
                     "- A brief rationale\n\n"
-                    "If the user asks a targeted question (e.g. 'Which expense metrics should I focus on?'), tailor your recommendations accordingly. "
+                    "If the user asks a targeted question (e.g. 'Which expense metrics should I focus on?'), "
+                    "tailor your recommendations accordingly. "
                     "Do NOT return any code, only a clean, well-formatted Markdown list."
                 )
 

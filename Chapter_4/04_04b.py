@@ -163,6 +163,9 @@ if not charts:
 
             #Add AI assistant's reply to chat history
 
+                #Try to evaluate reply if it's a simple expression (not structural code)
+
+                #If eval fails, show the original reply as code (e.g. structural queries)
 
             #Handle API errors and add to chat history
 

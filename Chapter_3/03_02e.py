@@ -36,7 +36,7 @@ if rev_exp_file and loc_file:
     st.dataframe(df.head())
 
     #Add subheader for full merged data section
-    st.subheader("Full Merged Data (optional)")
+    st.subheader("Full Merged Data")
     #Add expander to show entire merged dataset
     with st.expander("Show full dataset"):
         st.dataframe(df)
@@ -60,4 +60,4 @@ if rev_exp_file and loc_file:
 
 #If files have not been uploaded, display an informational message
 else:
-    st.info("Please upload all two files to proceed.")
+    st.info("Please upload the two files to proceed.")

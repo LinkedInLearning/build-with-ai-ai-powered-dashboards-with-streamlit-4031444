@@ -63,7 +63,7 @@ user_prompt = st.text_area(
 if st.button("Generate Filter Suggestions"):
     #Provide warning if user has not entered a request
     if not user_prompt.strip():
-        st.warning("Please enter a request above.")
+        st.warning("Please enter a filter request above.")
     else:
         #Display spinner while querying AI
         with st.spinner("AI is analyzing your data and crafting filter ideas…"):
@@ -79,7 +79,8 @@ if st.button("Generate Filter Suggestions"):
                     "- The column to filter on\n"
                     "- The filter operation (>, <, =, contains, etc.)\n"
                     "- A sensible default value or range based on the actual data values shown\n\n"
-                    "If the user asks a targeted question (like 'Which location-based filters should I include?'), tailor your recommendations accordingly. "
+                    "If the user asks a targeted question (like 'Which location-based filters should I include?'), "
+                    "tailor your recommendations accordingly. "
                     "Do NOT return any code, only a clean, well-formatted Markdown list."
                 )
 

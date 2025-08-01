@@ -7,7 +7,7 @@
 #Configure page
 
 
-#Write title and description
+#Write title
 
 
 #Load Iris dataset

@@ -185,9 +185,12 @@ if st.sidebar.button("Send", key="ui_send"):
                 "role": "system",
                 "content": (
                     "You are an assistant helping analyze a hotel performance dashboard. "
-                    "You have access to filtered dataframe `df`, which contains metrics like "
-                    "revenue, profit, city, etc. "
-                    "Answer in clear, concise language, and if code would help, provide an Altair snippet."
+                    "You have access to a filtered Pandas DataFrame called `df`. "
+                    "If the user's question asks for a numeric/statistical answer (e.g. totals, averages, counts), "
+                    "respond with a single valid Python expression using only built-in functions and pandas. "
+                    "Do NOT explain or add markdown. Return just the expression that would compute the answer.\n"
+                    "If the user asks about the structure of the data (e.g. column names, missing values, filters), "
+                    "return an appropriate code snippet to inspect the DataFrame structure (e.g. `df.columns`, `df.info()`, etc.)."
                 )
             }
         ] + st.session_state.chat_history
@@ -202,7 +205,19 @@ if st.sidebar.button("Send", key="ui_send"):
             #Gather assistant's response
             reply = resp.choices[0].message.content
             #Add AI assistant's reply to chat history
-            st.session_state.chat_history.append({"role": "assistant", "content": reply})
+            try:
+                #Try to evaluate reply if it's a simple expression (not structural code)
+                result = eval(reply, {"df": df, "pd": pd})
+                st.session_state.chat_history.append({
+                    "role": "assistant",
+                    "content": str(result)
+                })
+            except Exception:
+                #If eval fails, show the original reply as code (e.g. structural queries)
+                st.session_state.chat_history.append({
+                    "role": "assistant",
+                    "content": f"```python\n{reply}\n```"
+                })
 
         except Exception as e:
             #Handle API errors and add to chat history

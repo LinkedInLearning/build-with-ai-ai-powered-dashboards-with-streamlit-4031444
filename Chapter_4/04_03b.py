@@ -23,7 +23,7 @@ client = OpenAI(api_key=my_api_key)
 st.set_page_config(page_title="Hotel Dashboard", layout="wide")
 
 #Write title
-st.title("Organize Visualizations with AI")
+st.title("")
 
 #Create directory to store chart files if it doesn't already exist
 CHART_DIR = "charts"
