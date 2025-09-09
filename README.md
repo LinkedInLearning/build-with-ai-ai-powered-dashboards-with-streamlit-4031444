@@ -3,6 +3,10 @@ This is the repository for the LinkedIn Learning course `Build with AI: AI-Power
 
 ![course-name-alt-text][lil-thumbnail-url] 
 
+## Course Description
+
+In this hands-on course, data science consultant Megan Silvey guides you through how to use Streamlit to build web applications. In particular, learners will build an AI-powered coding assistant in Streamlit that helps generate, refine, and maintain interactive data dashboards using Python and OpenAI’s free‑tier API. Learners will start with building their Streamlit chat-based AI assistant. Learners will then learn how to load, prepare, and analyze their data in Streamlit. Then, learners will build dynamic dashboards with various visualizations and filters through conversational interactions with an embedded AI assistant. Finally, learners will learn how to test, maintain, and deploy their fully functional AI-powered dashboard on Streamlit Community Cloud.
+
 # File Structure
 There is one branch for this course containing four chapter folders corresponding to the four chapters in the course. Inside these chapter folders are the coding exercise files. The naming convention for the exercise files is CHAPTER#_MOVIE#. As an example, the branch named 02_03 corresponds to the second chapter and the third video in that chapter.
 
@@ -19,6 +23,6 @@ Check out my other courses on [LinkedIn Learning](https://www.linkedin.com/learn
 
 [0]: # (Replace these placeholder URLs with actual course URLs)
 
-[lil-course-url]: https://www.linkedin.com/learning/
-[lil-thumbnail-url]: https://media.licdn.com/dms/image/v2/D4E0DAQG0eDHsyOSqTA/learning-public-crop_675_1200/B4EZVdqqdwHUAY-/0/1741033220778?e=2147483647&v=beta&t=FxUDo6FA8W8CiFROwqfZKL_mzQhYx9loYLfjN-LNjgA
+[lil-course-url]: https://www.linkedin.com/learning/build-with-ai-ai-powered-dashboards-with-streamlit
+[lil-thumbnail-url]: https://media.licdn.com/dms/image/v2/D4E0DAQHw7FANyHbtMg/learning-public-crop_675_1200/B4EZkqZgSLGYAY-/0/1757352953765?e=2147483647&v=beta&t=uy__0W_KZOrBVgP3zg4ys_eMZuO3UGzB5MaFnnonoc0
 
