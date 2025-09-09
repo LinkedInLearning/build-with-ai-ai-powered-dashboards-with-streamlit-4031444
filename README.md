@@ -12,7 +12,7 @@ There is one branch for this course containing four chapter folders correspondin
 
 All coding exercise files will have a beginning and an end state, for example '02_03e' would be the ending file for the third movie in the second chapter. These are marked with the letters b for "beginning" and e for "end". The b file contains the code as it is at the beginning of the movie. The e file contains the code as it is at the end of the movie.
 
-Instructor
+## Instructor
 
 Megan Silvey
 
